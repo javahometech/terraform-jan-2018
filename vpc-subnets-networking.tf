@@ -44,6 +44,15 @@ resource "aws_route_table" "public_rt" {
   }
 }
 
+resource "aws_subnet" "manual" {
+  availability_zone = "${data.aws_availability_zones.azs.names[0]}"
+  cidr_block        = "10.20.5.0/24"
+  vpc_id            = "${aws_vpc.myvpc.id}"
+  tags {
+    Name = "manual"
+  }
+}
+
 # associate public route table for all public subnets
 
 resource "aws_route_table_association" "a" {
